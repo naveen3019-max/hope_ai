@@ -54,7 +54,7 @@ except Exception as e:
     print("Connection failed:", e)
 db = client.hope_ai # Database Name
 #db = SQLAlchemy(app)
-client = WebApplicationClient(app.config['GOOGLE_CLIENT_ID'])
+client = WebApplicationClient("212679902873-q5f6ubo4pkqrj01tb5ig61j9fh8ctep7.apps.googleusercontent.com")
 load_dotenv()
 
 import os
