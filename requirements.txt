@@ -17,3 +17,11 @@ flask
 markdown
 openai
 python-dotenv
+fpdf
+json
+werkzeug.security
+re
+os
+secrets
+razorpay
+bson.objectid
