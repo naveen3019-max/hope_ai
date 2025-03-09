@@ -1,13 +1,7 @@
-# Install core build tools first
 setuptools>=65.5.0
 wheel
 cryptography
 pyOpenSSL
-
-# Ensure latest pip version
-pip>=23.0
-
-# Flask stack
 Flask
 Flask-Login
 Flask-Bcrypt
@@ -15,20 +9,13 @@ Flask-PyMongo
 python-dotenv
 Werkzeug
 gunicorn
-
-# OAuth and AI
 google-auth
 oauthlib
 authlib
 google-generativeai
-
-# Translation
 googletrans==4.0.0-rc1
-
-# Other utilities
 fpdf
 markdown
 requests
 secrets
 razorpay
-
