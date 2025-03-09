@@ -1,0 +1,274 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 50%; /* Reduced width for better alignment */
+    margin: 50px auto;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    color: #0084ff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+button, input[type="submit"] {
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button:hover, input[type="submit"]:hover {
+    background: linear-gradient(90deg, #45a049, #4CAF50);
+    transform: scale(1.05);
+  }
+  #optimized-output {
+    background-color: #222;
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #fff;
+    font-size: 14px;
+    font-family: monospace;
+    overflow-x: auto;
+}
+/* Add spacing between sections */
+.code-optimizer, .language-translator, .email-generator {
+    margin-bottom: 30px; /* Adds space between sections */
+}
+
+/* Ensure buttons and inputs are properly spaced */
+button, input, textarea {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/* Style for section blocks */
+.section {
+    background-color: #0f0f0f;  /* Same dark background */
+    padding: 30px; /* Increased padding */
+    margin: 30px auto; /* Center the section */
+    border-radius: 12px; /* Smooth edges */
+    width: 50%; /* Adjust width for a similar box */
+    box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1); /* Soft glow effect */
+    text-align: center; /* Align content to center */
+}
+
+/* Style for headings */
+.section h2 {
+    color: white;
+    font-size: 24px; /* Larger font */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Style for labels */
+.section label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+}
+
+/* Style for inputs */
+.section textarea,
+.section select,
+.section input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: none;
+    background: white;
+    color: black;
+    font-size: 16px;
+}
+
+/* Style for buttons */
+.section button {
+    background-color: #28a745; /* Green button like in the image */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.section button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Style for loading message */
+.loading-message {
+    margin-top: 15px;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Emoji size */
+.loading-message img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+.email-box {
+    background: #1E1E1E; /* Dark mode */
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.email-content {
+    font-size: 16px;
+    line-height: 1.8; /* Increase line spacing */
+    white-space: pre-wrap; /* Ensure text wraps properly */
+    word-wrap: break-word;
+}
+
+strong {
+    color: #FFD700; /* Highlight bold text in gold */
+}
+#story-output h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+iframe {
+    width: 100%;
+    height: 800px; /* Increased from 400px to 800px */
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    background-color: white;
+}
+.code-container {
+    width: 100%; /* Change from fixed width to full width */
+    max-width: 800px; /* Adjust as needed */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: pre-wrap; /* Ensure text wraps properly */
+    word-wrap: break-word; /* Break long words */
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #1e1e1e; /* Dark theme background */
+    color: #ffffff;
+}
+
+
+pre {
+    white-space: pre-wrap; /* Ensures text doesn't wrap */
+    word-wrap: normal;
+    overflow-x: auto;
+    padding: 10px;
+    font-size: 16px; /* Adjust for better readability */
+}
+.edit-button-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+}
+
+.edit-button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.edit-button:hover {
+    background-color: #218838;
+}
+.edit-button-container {
+    display: block !important; 
+}
+
+/* WELCOME TEXT STYLING */
+.welcome-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px; /* Increased size */
+    font-weight: bold;
+    text-align: center;
+    color: #00ffff; /* Neon cyan for better contrast */
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #0099ff; /* Glow effect */
+    margin-top: 20px;
+    animation: glow 2s infinite alternate;
+}
+
+/* GLOW ANIMATION */
+@keyframes glow {
+    0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #0099ff; }
+    100% { text-shadow: 0 0 20px #00ffff, 0 0 40px #0099ff; }
+}
+/* Reduce line spacing in generated code */
+#generatedCode pre, #codeBlock {
+    line-height: 1.2 !important; /* Adjust the value as needed */
+    font-size: 13px !important;  /* Reduce font size */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+/* Dropdown Menu Styling */
+.group:hover .group-hover\\:block {
+    display: block;
+}
+.navbar ul {
+    display: flex;
+    gap: 15px;
+}
+.navbar ul li {
+    list-style: none;
+    position: relative;
+}
+.navbar ul li ul {
+    display: none;
+    position: absolute;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    padding: 8px 0;
+    box-shadow: 0px 0px 8px rgba(0, 255, 0, 0.3);
+}
+.navbar ul li:hover ul {
+    display: block;
+}
+.navbar ul li ul li {
+    padding: 8px 15px;
+    white-space: nowrap;
+}
+.navbar ul li ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+.navbar ul li ul li:hover {
+    background-color: #00ffaa;
+}

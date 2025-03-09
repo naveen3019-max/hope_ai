@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Hope AI</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            background: #0d0d0d;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+        }
+        .service-card h2 {
+            font-size: 1.8rem;
+            color: #00ffcc;
+        }
+        .service-card p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        .cta-button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            background: #00ffcc;
+            color: #0d0d0d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background: #009980;
+            box-shadow: 0 0 15px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Our AI-Powered Services</h1>
+        <div class="services">
+            <div class="service-card"  onclick="redirectToDashboard()">
+                <h2>AI Resume Builder</h2>
+                <p>Create professional resumes with AI-generated content.</p>
+            </div>
+            <div class="service-card" onclick="redirectToDashboard()">
+                <h2>AI Web Development</h2>
+                <p>Generate and optimize websites with AI-driven code.</p>
+            </div>
+            <div class="service-card" onclick="redirectToDashboard()">
+                <h2>AI Story Writing</h2>
+                <p>Generate compelling stories with high accuracy and depth.</p>
+            </div>
+            <div class="service-card" onclick="redirectToDashboard()">
+                <h2>SEO Optimization</h2>
+                <p>Enhance content visibility with AI-powered SEO tools.</p>
+            </div>
+        </div>
+        <button class="cta-button" onclick="redirectToDashboard()">Explore More Services</button>
+    </div>
+</body>
+</html>
+<script>
+    function redirectToDashboard() {
+        window.location.href = "/dashboard"; // Change this to match your Flask route
+    }
+</script>

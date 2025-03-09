@@ -1,0 +1,15 @@
+Flask
+pymongo
+Flask-PyMongo
+Flask-Login
+Flask-Bcrypt
+python-dotenv
+googletrans==4.0.0-rc1
+fpdf
+requests
+Werkzeug
+google-auth
+oauthlib
+authlib
+gunicorn
+google-generativeai

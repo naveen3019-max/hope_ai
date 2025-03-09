@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dashboard.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        function showLoading() {
+          document.getElementById("loading").style.display = "block";
+      }
+  </script>
+  <style>
+    /* Improved Navigation Bar */
+    .navbar {
+        background: rgba(30, 30, 30, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 15px 20px;
+        box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+    .navbar a {
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 10px 15px;
+        transition: 0.3s;
+    }
+    .navbar a:hover {
+        color: #00ffaa;
+        text-shadow: 0 0 10px #00ffaa, 0 0 20px #00ffaa;
+    }
+    
+    /* Improved Heading Text */
+    .neon-heading {
+        font-size: 3rem;
+        font-weight: 800;
+        text-align: center;
+        color: #00ffaa;
+        text-shadow: 0 0 15px #00ffaa, 0 0 30px #00ffaa;
+        animation: glow 1.5s infinite alternate;
+    }
+   
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+<!-- Navigation Bar -->
+<nav class="navbar flex justify-between items-center px-6">
+    <h1 class="text-green-400 text-2xl font-bold">HOPE AI</h1>
+    <ul class="flex space-x-6">
+        <li><a href="#home">Home</a></li>
+        <li><a href="{{ url_for('services') }}">Services</a></li>
+        <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+        <li><a href="{{ url_for('edit_page') }}" class="text-green-400">✏ Edit</a></li>
+
+        <!-- Dropdown Menu -->
+        <li class="relative group">
+            <a href="#" class="text-white hover:text-green-400">Menu ▼</a>
+            <ul class="absolute hidden group-hover:block bg-gray-800 rounded-lg shadow-md mt-2 py-2 w-40">
+                <li><a href="{{ url_for('profile') }}" class="block px-4 py-2 text-white hover:bg-green-500 rounded">👤 View Profile</a></li>
+                <li><a href="{{ url_for('chat_history_page') }}" class="block px-4 py-2 text-white hover:bg-green-500 rounded">💬 Chat History</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+  
+  <!-- Main Heading -->
+  <section id="home" class="text-center py-20">
+      <h1 class="welcome-text">🚀 Welcome to HOPE AI-powered Freelancing Dashboard!</h1>
+  </section>
+  
+</body>
+</html>
+
+    
+    
+       
+        <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+            <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 AI Content Generator</h2>
+        
+            <form id="contentForm" class="space-y-4">
+                <label for="content_type" class="block text-gray-300 font-semibold">Choose Content Type:</label>
+                <select id="content_type" name="content_type" class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+                    <option value="blog">Blog</option>
+                    <option value="resume">Resume</option>
+                    <option value="ad_copy">Ad Copy</option>
+                </select>
+        
+                <label for="topic" class="block text-gray-300 font-semibold">Enter Topic:</label>
+                <input type="text" id="topic" name="topic" required
+                    class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+        
+                <label for="length" class="block text-gray-300 font-semibold">Select Content Length:</label>
+                <select id="length" name="length" class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+                    <option value="150">Short (150 words)</option>
+                    <option value="300" selected>Medium (300 words)</option>
+                    <option value="500">Long (500 words)</option>
+                </select>
+        
+                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+                    🔥 Generate
+                </button>
+            </form>
+        
+            <!-- AI-Generated Content Output -->
+            <div id="generatedContent" class="mt-4 p-4 bg-gray-800 border border-green-500 rounded-md text-gray-200 min-h-[100px] shadow-md"  data-generator="Blog Writing">
+                <p class="text-center text-gray-400">{{ session.get('ai_content', 'Generated content will appear here...') }}</p>
+            </div>
+            </div>
+           <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto"   data-generator="Blog Writing">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+<!--website generator-->
+<div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500" >
+    <section id="generate" class="text-2xl font-bold text-green-400 mb-4 text-center">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">Generate a Professional AI Website</h2>
+    
+        <form id="websiteGeneratorForm" class="space-y-4">
+            <div class="col-md-6">
+                <label for="businessType" class="block text-gray-300 font-semibold">Business Type</label>
+                <input type="text" class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500" id="businessType" placeholder="e.g., Digital Marketing, E-commerce" required>
+            </div>
+            <div class="col-md-6">
+                <label for="features" class="block text-gray-300 font-semibold">Website Features</label>
+                <input type="text" class="form-control" id="features" placeholder="e.g., SEO Optimized, Mobile Friendly" required>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-success btn-lg">Generate Website</button>
+            </div>
+        </form>
+        <div id="loadingMessage" class="text-center mt-4 d-none">
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-2">Generating AI Website... Please wait.</p>
+        </div>
+        
+        <div id="generatedWebsite" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            <h3 class="text-lg font-semibold text-green-400">Website Preview</h3>
+            <iframe id="websitePreview" class="w-100 border rounded shadow" style="height: 500px;"></iframe>
+        </div>
+        
+        <div id="generatedCode" class="mt-5 d-none">
+            <h3 class="text-success text-center">Generated HTML Code</h3>
+            <div class="bg-dark text-white p-3 rounded">
+                <pre><code id="codeBlock" class="text-white"></code></pre>
+            </div>
+            <div class="text-center mt-3">
+                <button id="copyCodeButton" class="btn btn-outline-success">Copy Code</button>
+            </div>
+        </div>
+    </div>
+        </div>
+    </section>
+        
+        <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto"  data-generator="Website Generator">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+            
+    <!-- AI Code Optimizer -->
+     <!-- AI Code Optimizer -->
+     <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 Code Optimizer</h2>
+    
+        <form id="optimize-form" class="space-y-4">
+            <label for="code" class="block text-gray-300 font-semibold">Enter Code:</label>
+            <textarea id="code" name="code" rows="6" 
+                class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500"></textarea>
+    
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+                🔥 Optimize Code
+            </button>
+    
+            <!-- Loading Message -->
+            <p id="loadingMessage" class="text-center mt-4 text-green-400 animate-pulse hidden">
+                ⏳ Optimizing Code, Please Wait...
+            </p>
+        </form>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Optimized Code Output:</h3>
+        <div id="optimized-output" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-sm">
+            <p class="text-center text-gray-400">Your optimized code will appear here...</p>
+        </div>
+    </div>
+  <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto"data-generator="code Optimizer">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+<!--AI Translator-->
+    <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 Language Translator</h2>
+    
+        <textarea id="inputText" placeholder="Enter text to translate..." 
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500"></textarea>
+    
+        <label for="language" class="block text-gray-300 font-semibold mt-4">Select Language:</label>
+        <select id="language" class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="hi">Hindi</option>
+            <option value="kan">Kannada</option>
+            <option value="tel">Telugu</option>
+            <option value="mar">Marathi</option>
+            <option value="gur">Gujarati</option>
+            <option value="urdu">Urdu</option>
+            <option value="malya">Malayalam</option>
+            <option value="ta">Tamil</option>
+            <option value="ben">Bengali</option>
+        </select>
+    
+        <button onclick="translateText()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            🔥 Translate
+        </button>
+    
+        <!-- Loading Message -->
+        <p class="loading-message hidden font-bold text-green-400 text-center animate-pulse mt-4">
+            ⏳ Translating, Please Wait...
+        </p>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Translated Text:</h3>
+        <p id="outputText" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            Your translated text will appear here...
+        </p>
+    </div>
+   <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto"data-generator="Translator">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+    
+    <!--email Generator-->
+    <section class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 Generate Marketing Emails with AI</h2>
+    
+        <form id="emailForm" class="space-y-4">
+            <label for="email_type" class="block text-gray-300 font-semibold">Choose Email Type:</label>
+            <select id="email_type" name="email_type" class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+                <option value="Marketing Email">Marketing Email</option>
+                <option value="Cold Email">Cold Email</option>
+                <option value="Follow-up Email">Follow-up Email</option>
+                <option value="Newsletter">Newsletter</option>
+            </select>
+    
+            <label for="details" class="block text-gray-300 font-semibold">Enter Email Details:</label>
+            <textarea id="details" name="details" placeholder="Describe your product, audience, and key points..." required
+                class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500"></textarea>
+    
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+                🔥 Generate Email
+            </button>
+    
+            <!-- Loading Message -->
+            <p class="loading-message hidden font-bold text-green-400 text-center animate-pulse mt-4">
+                ⏳ Generating Email, Please Wait...
+            </p>
+        </form>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Generated Email:</h3>
+        <div id="emailOutput" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white">
+            <pre id="generatedEmail" class="text-gray-300 text-sm">Your generated email will appear here...</pre>
+        </div>
+        
+    </section>
+    <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto" data-generator="email generator">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+        <!--proofreading-->
+    <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 Proofreading & Editing</h2>
+    
+        <textarea id="proofreadingInput" rows="6" placeholder="Enter text for proofreading..."
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500"></textarea>
+    
+        <button onclick="proofreadText()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            🔥 Proofread
+        </button>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Edited Text:</h3>
+        <p id="proofreadingOutput" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            Your edited text will appear here...
+        </p>
+    </div>
+    <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto" data-generator="Proofreading and Editing">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+       <!--story writing-->    
+       <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500" >
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 AI Story Writer</h2>
+    
+        <label for="story-theme" class="block text-gray-300 font-semibold">Story Theme:</label>
+        <input type="text" id="story-theme" placeholder="Enter a theme (e.g., Lost Kingdom)"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="story-genre" class="block text-gray-300 font-semibold mt-4">Genre:</label>
+        <select id="story-genre"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+            <option value="Fantasy">Fantasy</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Motivational">Motivational</option>
+        </select>
+    
+        <label for="story-length" class="block text-gray-300 font-semibold mt-4">Story Length:</label>
+        <select id="story-length"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+            <option value="Short">Short</option>
+            <option value="Medium">Medium</option>
+            <option value="Long">Long</option>
+        </select>
+    
+        <button onclick="generateStory()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            🔥 Generate Story
+        </button>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Generated Story:</h3>
+        <div id="story-output" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            Your AI-generated story will appear here...
+        </div>
+    </div>
+    <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto" data-generator="story writing">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+    <!--Moble marketing-->
+    <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 AI-Powered Mobile Marketing</h2>
+    
+        <label for="campaign-type" class="block text-gray-300 font-semibold">Select Marketing Type:</label>
+        <select id="campaign-type"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+            <option value="SMS">SMS</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Push Notification">Push Notification</option>
+            <option value="Ad Copy">Ad Copy</option>
+        </select>
+    
+        <label for="product-details" class="block text-gray-300 font-semibold mt-4">Enter Product/Service Details:</label>
+        <input type="text" id="product-details" placeholder="E.g., AI-powered freelancing platform"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <button onclick="generateMarketingMessage()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            🔥 Generate Marketing Message
+        </button>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Generated Marketing Message:</h3>
+        <div id="marketing-output" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            Your AI-generated marketing message will appear here...
+        </div>
+    </div>
+    <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto" data-generator="Mobile marketing">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+    
+    <!--SEO-->
+    <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🚀 AI-Powered SEO Optimization</h2>
+    
+        <textarea id="contentInput" placeholder="Enter content..." 
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500"></textarea>
+    
+        <button id="seoButton"
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            🔥 Optimize SEO
+        </button>
+    
+        <hr class="border-green-500 my-6">
+    
+        <div class="result">
+            <h3 class="text-lg font-semibold text-green-400">Optimized Content:</h3>
+            <p id="optimizedContent" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+                Your optimized content will appear here...
+            </p>
+    
+            <h3 class="text-lg font-semibold text-green-400 mt-4">Suggested Keywords:</h3>
+            <p id="keywords" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+                Suggested keywords will be displayed here...
+            </p>
+    
+            <h3 class="text-lg font-semibold text-green-400 mt-4">Generated Meta Description:</h3>
+            <p id="metaDescription" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+                Generated meta description will appear here...
+            </p>
+        </div>
+    </div>
+    <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto"data-generator="SEO optimization">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+    
+    </div>
+    <!--script writing-->
+    <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">🎬 AI-Powered YouTube Script Generator</h2>
+    
+        <label for="youtube-topic" class="block text-gray-300 font-semibold">Video Topic:</label>
+        <input type="text" id="youtube-topic" placeholder="Enter your video topic"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="youtube-audience" class="block text-gray-300 font-semibold mt-4">Target Audience:</label>
+        <input type="text" id="youtube-audience" placeholder="Who is this video for?"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="youtube-length" class="block text-gray-300 font-semibold mt-4">Video Length (minutes):</label>
+        <input type="number" id="youtube-length" min="1" max="60" placeholder="Enter video duration"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <button onclick="generateYouTubeScript()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            🎥 Generate Script
+        </button>
+    
+        <hr class="border-green-500 my-6">
+    
+        <h3 class="text-lg font-semibold text-green-400">Generated Script:</h3>
+        <div id="youtube-script-output" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            Your AI-generated YouTube script will appear here...
+        </div>
+    </div>
+ <!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto" data-generator="script writing">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+    </div>
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+</div>
+
+    <!--resume -->
+    <div class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 text-center">📄 AI Resume & Cover Letter Generator</h2>
+    
+        <label for="name" class="block text-gray-300 font-semibold">Full Name:</label>
+        <input type="text" id="name" placeholder="Enter your name"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="job_title" class="block text-gray-300 font-semibold mt-4">Job Title:</label>
+        <input type="text" id="job_title" placeholder="Enter job title"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="experience" class="block text-gray-300 font-semibold mt-4">Experience:</label>
+        <textarea id="experience" placeholder="Describe your work experience"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500"></textarea>
+    
+        <label for="skills" class="block text-gray-300 font-semibold mt-4">Skills:</label>
+        <input type="text" id="skills" placeholder="Enter skills (comma separated)"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="education" class="block text-gray-300 font-semibold mt-4">Education:</label>
+        <input type="text" id="education" placeholder="Enter education (e.g., B.Tech in AI & ML)"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="start_date" class="block text-gray-300 font-semibold mt-4">Start Date:</label>
+        <input type="text" id="start_date" placeholder="e.g., 2019"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <label for="end_date" class="block text-gray-300 font-semibold mt-4">End Date:</label>
+        <input type="text" id="end_date" placeholder="e.g., 2023"
+            class="w-full p-3 bg-gray-800 border border-green-500 rounded-md text-white focus:ring-2 focus:ring-green-500">
+    
+        <button onclick="generateResume()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            📄 Generate Resume & Cover Letter
+        </button>
+    
+        <hr class="border-green-500 my-6">
+    
+        <div id="resumeOutput" class="w-full p-4 bg-gray-800 border border-green-500 rounded-md text-white text-center">
+            Your AI-generated resume will appear here...
+        </div>
+    
+        <button id="downloadBtn" style="display:none;" onclick="downloadResume()" 
+            class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
+            📥 Download PDF
+        </button>
+    </div>
+<!--bussiness-->    
+<section id="pressReleaseGenerator" class="section bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border border-green-500">
+    <h2 class="text-3xl font-bold text-green-400 text-center mb-6">📰 AI Universal Press Release Generator</h2>
+
+    <form id="pressReleaseForm" class="bg-gray-800 p-6 rounded-lg shadow-lg border border-green-500">
+        <label class="block text-gray-300 font-semibold">Press Release Type:</label>
+        <select id="pressType" required
+            class="w-full p-3 bg-gray-700 border border-green-500 rounded-md text-white">
+            <option value="company_funding">Company Funding Announcement</option>
+            <option value="product_launch">Product Launch</option>
+            <option value="event_announcement">Event Announcement</option>
+            <option value="government_policy">Government Policy Update</option>
+            <option value="celebrity_news">Celebrity News</option>
+            <option value="crisis_response">Crisis Response</option>
+            <option value="sports_announcement">Sports Announcement</option>
+            <option value="scientific_discovery">Scientific Discovery</option>
+        </select>
+
+        <label class="block text-gray-300 font-semibold mt-3">Headline:</label>
+        <input type="text" id="headline" placeholder="Enter a catchy headline" required
+            class="w-full p-3 bg-gray-700 border border-green-500 rounded-md text-white">
+
+        <label class="block text-gray-300 font-semibold mt-3">Key Details:</label>
+        <textarea id="keyDetails" placeholder="Describe the key details of the press release" required
+            class="w-full p-3 bg-gray-700 border border-green-500 rounded-md text-white"></textarea>
+
+        <label class="block text-gray-300 font-semibold mt-3">Contact Information:</label>
+        <input type="text" id="contactInfo" placeholder="Enter press contact info" required
+            class="w-full p-3 bg-gray-700 border border-green-500 rounded-md text-white">
+
+        <button type="submit"
+            class="w-full bg-green-500 hover:bg-green-600 px-5 py-3 mt-4 rounded text-gray-900 font-bold tracking-wide">
+            🔥 Generate Press Release
+        </button>
+    </form>
+
+    <!-- Generated Press Release Display -->
+    <div id="generatedPressRelease" class="mt-6 bg-gray-800 p-6 rounded-lg border border-green-500 text-white hidden">
+        <h3 class="text-2xl font-semibold text-green-300">Generated Press Release</h3>
+        <hr class="my-3 border-green-500">
+        <div id="pressReleaseContent"></div>
+    </div>
+</section>
+
+
+<!-- AI Feedback System (Compact, Reduced Width) -->
+<div class="feedback-section mt-4 p-2 bg-gray-800 rounded-lg shadow-md border border-green-500 text-sm w-64 mx-auto"data-generator="Business plan">
+    <h2 class="text-base font-semibold text-green-300 mb-2 text-center">📢 Feedback</h2>
+
+    <div class="flex justify-center space-x-2">
+        <button class="thumbsUp bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-gray-900 font-bold text-xs">
+            👍
+        </button>
+        <button class="thumbsDown bg-red-500 hover:bg-red-600 px-2 py-1 rounded text-white font-bold text-xs">
+            👎
+        </button>
+        
+    </div>
+
+
+    <label class="block mt-2 text-gray-300 font-semibold text-xs text-center">Improve?</label>
+    <select class="feedbackOptions w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs">
+        <option value="more_creative">More creative</option>
+        <option value="more_detailed">More details</option>
+        <option value="shorter">More concise</option>
+        <option value="better_format">Better formatting</option>
+    </select>
+
+    <textarea class="customFeedback w-full p-1 bg-gray-700 border border-green-500 rounded-md text-white text-xs mt-2 h-10"
+              placeholder="Additional comments..."></textarea>
+
+    <button class="submitFeedback w-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mt-2 rounded text-white font-bold text-xs">
+        📩 Submit
+    </button>
+    
+    
+
+</div>
+
+
+    
+    </section>
+        <script>
+            function downloadFile(filename, content) {
+                const blob = new Blob([content], { type: "text/html" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            }
+
+            document.querySelectorAll('nav a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Animated Image Gallery (Fade-in Effect)
+document.querySelectorAll(".gallery-container img").forEach(img => {
+  img.style.opacity = "0";
+  img.style.transition = "opacity 1s ease-in-out";
+  setTimeout(() => { img.style.opacity = "1"; }, 200);
+});
+document.querySelector('a[href="/pricing"]').addEventListener('click', function(event) { 
+    event.preventDefault();
+    window.location.href = "/pricing";
+});
+document.querySelector('a[href="/edit"]').addEventListener('click', function(event) { 
+    event.preventDefault();
+    window.location.href = "/edit";
+});
+document.querySelector('a[href="/services"]').addEventListener('click', function(event) { 
+    event.preventDefault();
+    window.location.href = "/services";
+});
+document.querySelector('a[href="/profile"]').addEventListener('click', function(event) { 
+    event.preventDefault();
+    window.location.href = "/profile";
+});
+document.querySelector('a[href="/chat-history-page"]').addEventListener('click', function(event) { 
+    event.preventDefault();
+    window.location.href = "/chat-history-page";
+});
+if (data.optimized_code) {
+    outputContainer.innerHTML = `
+        <pre style="white-space: pre-wrap; background-color: #222; color: #fff; padding: 10px; border-radius: 5px; font-size: 14px;">
+            <code>${escapeHTML(data.optimized_code)}</code>
+        </pre>
+    `;
+} else {
+    outputContainer.innerHTML = "<p style='color:red;'>❌ AI did not return optimized code.</p>";
+}
+
+
+        </script>
+        
+    <br>
+    <div class="section">
+        <button onclick="window.location.href='/logout'">Logout</button>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hope AI - Pricing</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        .pricing-table {
+            background: linear-gradient(135deg, #1e1e1e, #292929);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 170, 255, 0.3);
+            transition: transform 0.3s;
+        }
+        .pricing-table:hover {
+            transform: translateY(-10px);
+        }
+        .pricing-header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00aaff;
+        }
+        .btn-primary {
+            background-color: #00aaff;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0088cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Hope AI - Pricing Plans</h2>
+        <div class="row g-4">
+            <!-- Free Plan -->
+            <div class="col-md-4">
+                <div class="pricing-table text-center">
+                    <h4>Free Plan</h4>
+                    <p class="price">₹0</p>
+                    <p>10 AI generations/month</p>
+                    <p>Basic AI models</p>
+                    <p>Watermarked output</p>
+                    <p>Community support</p>
+                    <button class="btn btn-primary">Start Free</button>
+                </div>
+            </div>
+            <!-- Basic Plan -->
+            <div class="col-md-4">
+                <div class="pricing-table text-center">
+                    <h4>Basic Plan</h4>
+                    <p class="price">₹499/month</p>
+                    <p>50 AI generations</p>
+                    <p>Standard AI models</p>
+                    <p>No watermark</p>
+                    <p>Email support</p>
+                    <button class="btn btn-primary" onclick="payNow(499)">Upgrade</button>
+                </div>
+            </div>
+            <!-- Pro Plan -->
+            <div class="col-md-4">
+                <div class="pricing-table text-center">
+                    <h4>Pro Plan</h4>
+                    <p class="price">₹999/month</p>
+                    <p>200 AI generations</p>
+                    <p>Advanced AI models</p>
+                    <p>Priority support</p>
+                    <button class="btn btn-primary" onclick="payNow(999)">Upgrade</button>
+
+                </div>
+            </div>
+            <!-- Unlimited Plan -->
+            <div class="col-md-4 mx-auto">
+                <div class="pricing-table text-center">
+                    <h4>Unlimited Plan</h4>
+                    <p class="price">₹1999/month</p>
+                    <p>Unlimited AI generations</p>
+                    <p>Premium AI models</p>
+                    <p>24/7 VIP support</p>
+                    <p>Custom AI improvements</p>
+                    <button class="btn btn-primary" onclick="payNow(1999)">Upgrade</button>
+
+                </div>
+            </div>
+        </div>
+        
+        <h3 class="text-center my-5">Pay-Per-Use Pricing</h3>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="pricing-table text-center">
+                    <h4>AI-Powered Writing</h4>
+                    <p>Blog Writing: ₹49/blog</p>
+                    <p>Story Writing: ₹79/story</p>
+                    <p>YouTube Script: ₹69/script</p>
+                    <p>Press Release: ₹129/release</p>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pricing-table text-center">
+                    <h4>AI-Powered Development</h4>
+                    <p>Website Generator: ₹199/site</p>
+                    <p>Code Optimization: ₹99/100 lines</p>
+                    <p>SEO Optimization: ₹149/site</p>
+                    <button class="btn btn-primary">Start Now</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pricing-table text-center">
+                    <h4>AI-Powered Business Services</h4>
+                    <p>Resume Writing: ₹149/resume</p>
+                    <p>Proofreading & Editing: ₹79/1000 words</p>
+                    <p>Email Marketing Copy: ₹99/email</p>
+                    <p>Translation: ₹129/1000 words</p>
+                    <button class="btn btn-primary">Try Now</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pricing-table text-center">
+                    <h4>AI-Powered Marketing</h4>
+                    <p>Mobile Marketing Optimization: ₹199/campaign</p>
+                    <p>Ad Copy Generation: ₹99/ad</p>
+                    <button class="btn btn-primary">Boost Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    function payNow(amount) {
+        fetch("/create_order", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({ amount: amount })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.order_id) {var options = {
+    "key": "rzp_test_YyibBcCQWMgCjc", // ✅ Replace this with actual live key
+    "amount": amount * 100,
+    "currency": "INR",
+    "name": "Hope AI",
+    "description": "AI Subscription Payment",
+    "order_id": data.order_id,
+    "handler": function (response) {
+        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+        saveTransaction(response.razorpay_payment_id, amount);
+    }
+};       
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            } else {
+                alert("Error creating order!");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    function saveTransaction(paymentId, amount) {
+        fetch("/verify_payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ payment_id: paymentId, amount: amount })
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+
+</body>
+</html>
