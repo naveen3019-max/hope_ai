@@ -17,8 +17,6 @@ flask
 markdown
 python-dotenv
 fpdf
-re
-os
 secrets
 razorpay
 bson.objectid
