@@ -21,4 +21,5 @@ secrets
 razorpay
 bson.objectid
 pyOpenSSL
-
+cryptography
+setuptools
