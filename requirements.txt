@@ -20,3 +20,5 @@ fpdf
 secrets
 razorpay
 bson.objectid
+pyOpenSSL
+
