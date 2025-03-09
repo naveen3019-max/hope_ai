@@ -13,3 +13,7 @@ oauthlib
 authlib
 gunicorn
 google-generativeai
+flask
+markdown
+openai
+python-dotenv
