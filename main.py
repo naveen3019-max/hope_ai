@@ -308,9 +308,9 @@ def generate_content():
         return jsonify({"error": "User not logged in"}), 401
 
     # Track user generations
-    redirect_response = track_generations()
-    if redirect_response:
-        return redirect_response  # Stop generation if limit is reached
+    #redirect_response = track_generations()
+    #if redirect_response:
+        #return redirect_response  # Stop generation if limit is reached
 
 
     # Get JSON data from frontend
