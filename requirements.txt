@@ -17,7 +17,6 @@ flask
 markdown
 python-dotenv
 fpdf
-json
 werkzeug.security
 re
 os
