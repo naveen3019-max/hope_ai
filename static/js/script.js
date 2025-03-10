@@ -287,7 +287,7 @@ function proofreadText() {
         return;
     }
 
-    fetch("http://127.0.0.1:5000/proofread", {  // Change the URL if needed
+    fetch("/proofread", {  // Change the URL if needed
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: inputText })
@@ -317,7 +317,7 @@ function generateStory() {
     outputDiv.innerHTML = "<p>⏳ Generating your story... Please wait.</p>";
 
     // API Request
-    fetch("http://127.0.0.1:5000/generate-story", {
+    fetch("/generate-story", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ theme, genre, length }),
@@ -347,7 +347,7 @@ function generateMarketingMessage() {
 
     outputDiv.innerHTML = "<p>⏳ Generating your marketing message... Please wait.</p>";
 
-    fetch("http://127.0.0.1:5000/generate-marketing", {
+    fetch("/generate-marketing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ campaign_type: campaignType, product_details: productDetails }),
