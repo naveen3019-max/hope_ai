@@ -287,7 +287,7 @@ function proofreadText() {
         return;
     }
 
-    fetch("/proofread", {  // Change the URL if needed
+    fetch("https://hope-ai-iph9.onrender.com/proofread", {  // Change the URL if needed
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: inputText })
@@ -317,7 +317,7 @@ function generateStory() {
     outputDiv.innerHTML = "<p>⏳ Generating your story... Please wait.</p>";
 
     // API Request
-    fetch("/generate-story", {
+    fetch("https://hope-ai-iph9.onrender.com/generate-story", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ theme, genre, length }),
@@ -347,7 +347,7 @@ function generateMarketingMessage() {
 
     outputDiv.innerHTML = "<p>⏳ Generating your marketing message... Please wait.</p>";
 
-    fetch("/generate-marketing", {
+    fetch("https://hope-ai-iph9.onrender.com/generate-marketing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ campaign_type: campaignType, product_details: productDetails }),
