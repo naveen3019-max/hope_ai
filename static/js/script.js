@@ -798,4 +798,19 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchFeedback();
 });
 
+function checkOrientation() {
+  const messageBox = document.getElementById("rotate-message");
+  if (window.innerHeight > window.innerWidth) {
+    // Portrait
+    messageBox.style.display = "flex";
+  } else {
+    // Landscape
+    messageBox.style.display = "none";
+  }
+}
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+
 
