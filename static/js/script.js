@@ -31,12 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.generated_content) {
                     // Convert Newlines to <br> and Bold Formatting for Better Display
                     let formattedContent = data.generated_content
-                        .replace(/\n/g, "<br>")  // Convert Newlines to HTML Line Breaks
-                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");  // Convert **Bold** to <strong>
+                        .replace(/\n/g, "<br><br>")  // double line break for better spacing
+                            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // bold formatting
+                            .replace(/## (.*?)<br>/g, "<h2 style='color: gold;'>$1</h2>")
+                            .replace(/### (.*?)<br>/g, "<h3 style='color: #00ffd5;'>$1</h3>");
 
                     outputDiv.innerHTML = `
-                        <h3>Generated ${contentType.charAt(0).toUpperCase() + contentType.slice(1)}</h3>
-                        <p>${formattedContent}</p>`;
+                       <div class="blog-output-box">
+                        <h2 style="text-align:center; color: gold;">📝 Generated Blog</h2>
+                        <div class="blog-content">${formattedContent}</div>
+                      </div>
+                    `;
                 } else {
                     outputDiv.innerHTML = "<p>❌ AI failed to generate content. Try again.</p>";
                 }
