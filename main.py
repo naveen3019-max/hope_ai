@@ -847,17 +847,18 @@ def generate_story():
 
     # Check AI response
     if response and hasattr(response, "text"):
+        story_text= response.text.strip()
         story_chat = {
             "user_id": session["user_id"],
             "generator_type": "Story Writing",
             "user_input": f"Theme: {theme}, Genre: {genre}, Length: {length}",
-            "ai_response": response.text[:1000],
+            "ai_response": story_text[:1000],
             "timestamp": datetime.utcnow()
         }
         story_writing_collection.insert_one(story_chat)
         generation_count=+1
         print(generation_count)
-        return jsonify({"story": response.text.strip()})
+        return jsonify({"story": story_text})
 
     return jsonify({"error": "AI could not generate a valid story."}), 500
 
