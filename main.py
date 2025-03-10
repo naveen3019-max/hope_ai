@@ -187,7 +187,7 @@ def google_login():
 
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri="http://localhost:5000/login/google/callback",
+        redirect_uri="https://hope-ai-iph9.onrender.com/login/google/callback",
         scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
@@ -203,7 +203,7 @@ def google_callback():
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url,
-        redirect_url="http://localhost:5000/login/google/callback",
+        redirect_url="https://hope-ai-iph9.onrender.com/login/google/callback",
         code=code
     )
     token_response = requests.post(
