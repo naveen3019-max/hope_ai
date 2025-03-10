@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.generated_content) {
                     // Convert Newlines to <br> and Bold Formatting for Better Display
                     let formattedContent = data.generated_content
-                        .replace(/\n/g, "<br><br>")  // double line break for better spacing
-                            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // bold formatting
-                            .replace(/## (.*?)<br>/g, "<h2 style='color: gold;'>$1</h2>")
-                            .replace(/### (.*?)<br>/g, "<h3 style='color: #00ffd5;'>$1</h3>");
+                        .replace(/\n+/g, "<br>")  // double line break for better spacing
+                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // bold formatting
+                        .replace(/## (.*?)<br>/g, "<h2 style='color: gold;'>$1</h2>")
+                        .replace(/### (.*?)<br>/g, "<h3 style='color: #00ffd5;'>$1</h3>");
 
                     outputDiv.innerHTML = `
                        <div class="blog-output-box">
