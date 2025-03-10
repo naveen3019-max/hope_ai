@@ -1212,42 +1212,24 @@ def generate_press_release():
 def edit_page():
     return render_template("edit.html")
 
-@app.route("/edit-content", methods=["POST"])
-def edit_content():
-    """API to process user edits and regenerate content using AI."""
-    if "user_id" not in session:
-        return jsonify({"error": "Please log in to edit content."}), 403
-
+@app.route('/edit-output', methods=['POST'])
+def edit_output():
     data = request.json
-    user_edits = data.get("edited_content", "").strip()
+    original_text = data.get('original_text', '')
+    instruction = data.get('instruction', '')
 
-    if not user_edits:
-        return jsonify({"error": "No edited content provided!"}), 400
+    if not original_text or not instruction:
+        return jsonify({"edited_text": "Please provide both content and instruction."})
 
-    # AI Prompt to refine user edits
-    prompt = f"""
-    You are an expert editor. Refine and improve the following user-edited content 
-    while keeping the original meaning and enhancing clarity, grammar, and structure:
-
-    **User Edits:** {user_edits}
-
-    Return only the improved version.
-    """
-
-    try:
-        # Send request to AI model
-        response = model.generate_content(prompt)
-
-        if response and hasattr(response, "text"):
-            improved_content = response.text.strip()
-            session["edited_content"] = improved_content  # Store in session
-            return jsonify({"improved_content": improved_content})
-
-        return jsonify({"error": "AI failed to process the edit."}), 500
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    # AI prompt
+    prompt = f"Edit the following content as per instruction:\nInstruction: {instruction}\nContent:\n{original_text}\n\nImproved Version:"
     
+    # ✅ Fix: Extract only .text from model response
+    edited_result = model.generate_content(prompt)
+
+    # ✅ Convert only the string result to JSON
+    return jsonify({"edited_text": edited_result.text.strip()})
+
 
 
 @app.route("/submit-feedback", methods=["POST"])
