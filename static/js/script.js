@@ -358,7 +358,10 @@ function generateStory() {
         } else {
             outputDiv.innerHTML = "<p style='color: red;'>❌ Error: AI could not generate the story.</p>";
         }
-    
+        .catch(error => {
+  outputDiv.innerHTML = `<p style='color: red;'>❌ Error: ${error.message}</p>`;
+});
+
         //outputDiv.innerHTML = "<p style='color: red;'>❌ Error connecting to the AI server.</p>";
     });
 
