@@ -333,3 +333,53 @@ pre {
   font-weight: bold;
   color: gold;
 }
+
+.output-section {
+    background-color: #f0f8ff;
+    padding: 18px 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .output-section p {
+    margin-bottom: 18px;
+    font-size: 16px;
+    color: #111;
+  }
+  .output-section strong {
+    font-size: 17px;
+    color: #000;
+  }
+  #proofreadingOutput p {
+    color: #222 !important;  /* Darker color for better readability */
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  
+  #proofreadingOutput strong {
+    color: #111 !important; /* Bold titles like "Original Text" etc. */
+  }
+  #proofreadingOutput p {
+    margin-bottom: 20px;
+  }
+
+  
+.story-output-container {
+  background-color: #fefefe;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+.story-output-container h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+.story-output-container p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.8;
+}
+
+
