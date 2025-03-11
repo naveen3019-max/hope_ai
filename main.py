@@ -795,7 +795,23 @@ def proofread():
             proofreading_collection.insert_one(proofreading_chat)
             generation_count=+1
             print(generation_count)
-    return jsonify({"original": input_text, "corrected_text": edited_text})
+            formatted_output = f"""
+===== PROOFREADING & EDITING RESULT =====
+
+📌 Original Text:
+{input_text}
+
+✅ Corrected Text:
+{edited_text}
+
+📝 Suggestions / Notes:
+- Improved tone
+- Grammar corrected
+- Clarity enhanced
+=========================================
+"""
+
+    return jsonify({"result": formatted_output})
 
 @app.route("/generate-story", methods=["POST"])
 def generate_story():
@@ -848,6 +864,9 @@ def generate_story():
     # Check AI response
     if response and hasattr(response, "text"):
         story_text= response.text.strip()
+        lines = story_text.split("\n", 1)
+        story_title = lines[0].strip()
+        story_body = lines[1].strip().replace("\n", "<br>") if len(lines) > 1 else ""
         story_chat = {
             "user_id": session["user_id"],
             "generator_type": "Story Writing",
@@ -858,7 +877,10 @@ def generate_story():
         story_writing_collection.insert_one(story_chat)
         generation_count=+1
         print(generation_count)
-        return jsonify({"story": story_text})
+        return jsonify({
+        "title": story_title,
+        "story": story_body
+    })
 
     return jsonify({"error": "AI could not generate a valid story."}), 500
 
