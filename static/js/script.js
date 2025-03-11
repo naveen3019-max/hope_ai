@@ -299,7 +299,26 @@ function proofreadText() {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById("proofreadingOutput").innerText = data.corrected_text;
+        const responseText = data.result;
+
+// Extract the sections (based on emojis/labels your backend is sending)
+const original = responseText.split("📌 Original Text:")[1]?.split("✅ Corrected Text:")[0]?.trim() || "";
+const corrected = responseText.split("✅ Corrected Text:")[1]?.split("📝 Suggestions / Notes:")[0]?.trim() || "";
+const suggestions = responseText.split("📝 Suggestions / Notes:")[1]?.trim() || "";
+
+// Final formatted content block
+let formattedOutput = `
+  <h4 style="text-align: center; color: #2ecc71; font-weight: bold;">Edited Text:</h4>
+  <div style="background-color: #eaf6ff; padding: 20px; border-radius: 12px; margin-top: 10px;">
+    <p><strong>📌 Original Text:</strong><br>${original}</p>
+    <p><strong>✅ Corrected Text:</strong><br>${corrected}</p>
+    <p><strong>📝 Suggestions / Notes:</strong><br>${suggestions}</p>
+  </div>
+`;
+
+document.getElementById("proofreadingOutput").innerHTML = formattedOutput;
+
+    
     })
     .catch(error => {
         console.error("Error:", error);
@@ -329,16 +348,20 @@ function generateStory() {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.story) {
-            outputDiv.innerHTML = `<h2 style="text-align: center;">Generated Story</h2><p>${data.story}</p>`;
+        if (data.story && data.title) {
+            outputDiv.innerHTML = `
+              <div class="story-output-container" style="background: #f0f4f8; padding: 20px; border-radius: 10px;">
+                <h2 style="text-align: center; font-weight: bold; margin-bottom: 20px; color: #1a202c;">${data.title}</h2>
+                <p style="text-align: justify; line-height: 1.8; font-size: 16px; color: #333;">${data.story}</p>
+              </div>
+            `;
         } else {
             outputDiv.innerHTML = "<p style='color: red;'>❌ Error: AI could not generate the story.</p>";
         }
-    })
-    .catch(error => {
-        outputDiv.innerHTML = "<p style='color: red;'>❌ Error connecting to the AI server.</p>";
+    
+        //outputDiv.innerHTML = "<p style='color: red;'>❌ Error connecting to the AI server.</p>";
     });
-}
+
 //Mobile marketing
 function generateMarketingMessage() {
     const campaignType = document.getElementById("campaign-type").value;
