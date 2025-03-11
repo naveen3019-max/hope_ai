@@ -326,43 +326,43 @@ document.getElementById("proofreadingOutput").innerHTML = formattedOutput;
     });
 }
 //story writing
-async function generateStory() {
-    const prompt = document.getElementById('storyPrompt').value;
-    const storyOutput = document.getElementById('storyOutput');
-    const loadingIndicator = document.getElementById('loading');
+function generateStory() {
+    const theme = document.getElementById("story-theme").value;
+    const genre = document.getElementById("story-genre").value;
+    const length = document.getElementById("story-length").value;
+    const outputDiv = document.getElementById("story-output");
 
-    // Show loading
-    loadingIndicator.style.display = 'block';
-    storyOutput.innerHTML = ''; // Clear old story
-
-    try {
-        const response = await fetch('/generate_story', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ prompt: prompt })
-        });
-
-        const data = await response.json();
-
-        // Call renderStory with generated story
-        renderStory(data.story);
-    } catch (error) {
-        storyOutput.innerHTML = 'Error generating story.';
-        console.error('Error:', error);
-    } finally {
-        loadingIndicator.style.display = 'none'; // Hide loading
+    // Validate input
+    if (!theme) {
+        outputDiv.innerHTML = "<p style='color: red;'>❌ Please enter a story theme!</p>";
+        return;
     }
+
+    outputDiv.innerHTML = "<p>⏳ Generating your story... Please wait.</p>";
+
+    // API Request
+    fetch("http://127.0.0.1:5000/generate-story", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ theme, genre, length }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.story && data.title) {
+            outputDiv.innerHTML = `
+              <div class="story-output-container" style="background: #f0f4f8; padding: 20px; border-radius: 10px;">
+                <h2 style="text-align: center; font-weight: bold; margin-bottom: 20px; color: #1a202c;">${data.title}</h2>
+                <p style="text-align: justify; line-height: 1.8; font-size: 16px; color: #333;">${data.story}</p>
+              </div>
+            `;
+        } else {
+            outputDiv.innerHTML = "<p style='color: red;'>❌ Error: AI could not generate the story.</p>";
+        }
+        
+        
+        //outputDiv.innerHTML = "<p style='color: red;'>❌ Error connecting to the AI server.</p>";
+    });
 }
-
-// Fixed: Now storyContent is passed and rendered
-function renderStory(storyContent) {
-    const storyOutput = document.getElementById('storyOutput');
-    storyOutput.innerHTML = `<p>${storyContent.replace(/\n/g, '<br>')}</p>`;
-}
-
-
 //Mobile marketing
 function generateMarketingMessage() {
     const campaignType = document.getElementById("campaign-type").value;
