@@ -488,7 +488,7 @@
             <option value="Long">Long</option>
         </select>
     
-        <button onclick="generateStory()" 
+        <button onclick="generateStory()" id="generate-btn"
             class="w-full mt-4 bg-green-500 hover:bg-green-600 px-5 py-3 rounded text-gray-900 font-bold tracking-wide shadow-lg hover:shadow-green-500 transition duration-300">
             🔥 Generate Story
         </button>
@@ -889,6 +889,9 @@ if (data.optimized_code) {
 } else {
     outputContainer.innerHTML = "<p style='color:red;'>❌ AI did not return optimized code.</p>";
 }
+window.onload = function () {
+    document.getElementById("generate-btn").onclick = generateStory;
+};
 
 
         </script>
