@@ -795,22 +795,23 @@ def proofread():
             proofreading_collection.insert_one(proofreading_chat)
             generation_count=+1
             print(generation_count)
-            formatted_output = f"""
-===== PROOFREADING & EDITING RESULT =====
+            formatted_output = f"""===== PROOFREADING & EDITING RESULT =====
 
-📌 Original Text:
-{input_text}
-
-✅ Corrected Text:
-{edited_text}
-
-📝 Suggestions / Notes:
-- Improved tone
-- Grammar corrected
-- Clarity enhanced
-=========================================
-"""
-
+                    📌 Original Text:
+                    {input_text}
+                    
+                    ✅ Corrected Text:
+                    {edited_text}
+                    
+                    📝 Suggestions / Notes:
+                    - Improved tone
+                    - Grammar corrected
+                    - Clarity enhanced
+                    =========================================
+                    """
+            
+            
+                
     return jsonify({"result": formatted_output})
 
 @app.route("/generate-story", methods=["POST"])
