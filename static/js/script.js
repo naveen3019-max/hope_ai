@@ -341,7 +341,7 @@ function generateStory() {
     outputDiv.innerHTML = "<p>⏳ Generating your story... Please wait.</p>";
 
     // API Request
-    fetch("http://127.0.0.1:5000/generate-story", {
+    fetch("https://hope-ai-iph9.onrender.com/generate-story", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ theme, genre, length }),
